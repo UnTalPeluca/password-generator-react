@@ -9,8 +9,8 @@ const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
   const [length, setLength] = useState(10);
   const [strength, setStrenght] = useState(0);
-  const [uppercase, setUppercase] = useState(false);
-  const [lowercase, setLowercase] = useState(false);
+  const [uppercase, setUppercase] = useState(true);
+  const [lowercase, setLowercase] = useState(true);
   const [numbers, setNumbers] = useState(false);
   const [symbols, setSymbols] = useState(false);
   const generatePassword = (e) => {
@@ -44,7 +44,6 @@ const PasswordGenerator = () => {
     if (symbols) newStrength += 1;
     if (length < 8) newStrength -= 1;
     setStrenght(newStrength);
-    console.log(newStrength);
   });
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
