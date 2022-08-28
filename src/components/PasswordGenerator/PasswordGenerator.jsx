@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Slider from "../Form/Slider";
 import Result from "./Result";
 import Checkbox from "../Form/Checkbox";
@@ -8,7 +8,7 @@ import GenerateBtn from "../Buttons/Generate";
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
   const [length, setLength] = useState(10);
-  const [strength, setStrenght] = useState(1);
+  const [strength, setStrenght] = useState(0);
   const [uppercase, setUppercase] = useState(false);
   const [lowercase, setLowercase] = useState(false);
   const [numbers, setNumbers] = useState(false);
@@ -35,6 +35,17 @@ const PasswordGenerator = () => {
     }
     setPassword(newPassword);
   };
+  useEffect(() => {
+    let newStrength = 0;
+    if (lowercase || uppercase) {
+      newStrength += 1;
+    }
+    if (numbers) newStrength += 1;
+    if (symbols) newStrength += 1;
+    if (length < 8) newStrength -= 1;
+    setStrenght(newStrength);
+    console.log(newStrength);
+  });
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
       <Result value={password} />

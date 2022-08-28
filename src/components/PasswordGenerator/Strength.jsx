@@ -14,14 +14,14 @@ const Strength = ({ value }) => {
     >
       <p className="text-grey sm:text-lg">strength</p>
       <div className="flex gap-2">
-        <p className="text-lg sm:text-2xl">{levels[value].message}</p>
+        <p className="text-lg sm:text-2xl">{levels[value]?.message}</p>
         <div className="flex items-center gap-1">
           {levels.map((level, index) => (
             <div
               key={index}
               className={
                 "border w-2 h-full " +
-                (index <= value ? levels[value].classes : "")
+                (index <= value ? levels[value]?.classes : "")
               }
             />
           ))}
