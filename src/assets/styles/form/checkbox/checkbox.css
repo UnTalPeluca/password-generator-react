@@ -1,0 +1,25 @@
+input[type="checkbox"] {
+  appearance: none;
+  min-height: 20px;
+  min-width: 20px;
+  background-color: transparent;
+  border: 2px solid #e6e5ea;
+}
+input[type="checkbox"]:checked {
+  background-color: #a4ffaf;
+  border-color: #a4ffaf;
+}
+input[type="checkbox"]:hover {
+  border-color: #a4ffaf;
+}
+input[type="checkbox"]:checked + span::before {
+  content: "";
+  position: absolute;
+  background-image: url("../../../images/icon-check.svg");
+  background-repeat: no-repeat;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-25%);
+  width: 20px;
+  height: 20px;
+}
