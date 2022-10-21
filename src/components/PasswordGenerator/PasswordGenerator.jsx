@@ -3,48 +3,69 @@ import Slider from "../Form/Slider";
 import Result from "./Result";
 import Checkbox from "../Form/Checkbox";
 import Strength from "./Strength";
-import GenerateBtn from "../Buttons/Generate";
+import PrimaryBtn from "../Buttons/Primary";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
-  const [length, setLength] = useState(10);
+  const [passwordLength, setPasswordLength] = useState(10);
   const [strength, setStrenght] = useState(0);
   const [uppercase, setUppercase] = useState(true);
   const [lowercase, setLowercase] = useState(true);
   const [numbers, setNumbers] = useState(false);
   const [symbols, setSymbols] = useState(false);
+  const chars = {
+    lowercase: "abcdefghijklmnopqrstuvwxyz",
+    uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    numbers: "0123456789",
+    symbols: "!@#$%^&*()",
+  };
+  let charsAvailables = "";
   const generatePassword = (e) => {
     e.preventDefault();
-    let chars = "";
     let newPassword = "";
-    if (lowercase) {
-      chars += "abcdefghijklmnopqrstuvwxyz";
-    }
+    const getRandomChar = (string) => {
+      let randomNumber = Math.floor(Math.random() * string.length);
+      return string.substring(randomNumber, randomNumber + 1);
+    };
     if (uppercase) {
-      chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      charsAvailables += chars.uppercase;
+      newPassword += getRandomChar(chars.uppercase);
+    }
+    if (lowercase) {
+      charsAvailables += chars.lowercase;
+      newPassword += getRandomChar(chars.lowercase);
     }
     if (numbers) {
-      chars += "0123456789";
+      charsAvailables += chars.numbers;
+      newPassword += getRandomChar(chars.numbers);
     }
     if (symbols) {
-      chars += "!@#$%^&*()";
+      charsAvailables += chars.symbols;
+      newPassword += getRandomChar(chars.symbols);
     }
-    for (let i = 0; i < length; i++) {
-      let randomNumber = Math.floor(Math.random() * chars.length);
-      newPassword += chars.substring(randomNumber, randomNumber + 1);
+    let loopLength = Math.floor(passwordLength) - newPassword.length;
+    for (let i = 0; i < loopLength; i++) {
+      newPassword += getRandomChar(charsAvailables);
     }
     setPassword(newPassword);
   };
   useEffect(() => {
-    let newStrength = 0;
-    if (lowercase || uppercase) {
+    /* Checking the password strength. */
+    let newStrength = -1;
+    if (uppercase) {
       newStrength += 1;
     }
-    if (numbers) newStrength += 1;
-    if (symbols) newStrength += 1;
-    if (length < 8) newStrength -= 1;
+    if (lowercase) {
+      newStrength += 1;
+    }
+    if (numbers) {
+      newStrength += 1;
+    }
+    if (symbols) {
+      newStrength += 1;
+    }
     setStrenght(newStrength);
-  });
+  }, [uppercase, lowercase, numbers, symbols]);
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
       <Result value={password} />
@@ -58,14 +79,14 @@ const PasswordGenerator = () => {
             <div className="flex justify-between font-bold items-center pb-2 sm:pb-6">
               <p className="sm:text-lg">Character Length</p>
               <p className="text-2xl text-neon-green sm:text-3xl">
-                {Math.floor(length)}
+                {Math.floor(passwordLength)}
               </p>
             </div>
             <Slider
-              min="0"
+              min="10"
               max="20"
-              value={length}
-              onChange={(e) => setLength(e.target.value)}
+              value={passwordLength}
+              onChange={(e) => setPasswordLength(e.target.value)}
             />
           </div>
           {/* End Password Length */}
@@ -98,7 +119,7 @@ const PasswordGenerator = () => {
         </div>
         <div className="flex flex-col gap-4 sm:gap-8">
           <Strength value={strength} />
-          <GenerateBtn>GENERATE</GenerateBtn>
+          <PrimaryBtn>GENERATE</PrimaryBtn>
         </div>
       </form>
     </div>
