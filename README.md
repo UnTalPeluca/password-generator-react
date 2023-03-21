@@ -32,7 +32,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Frontend Mentor](https://www.frontendmentor.io/solutions/password-generator-with-react-and-tailwind-LdPdBeWcZl)
-- Live Site URL: [Netlify](https://react-pwgen.netlify.app)
+- Live Site URL: [Netlify](https://pw-gen-react.netlify.app)
 
 ## My process
 
