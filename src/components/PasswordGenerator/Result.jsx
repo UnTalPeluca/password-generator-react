@@ -20,11 +20,11 @@ const Result = ({ value }) => {
     >
       <label>
         <input
-          className="w-full bg-transparent box-border cursor-pointer text-2xl placeholder:text-almost-white/25 sm:text-3xl"
+          className="w-full bg-transparent box-border cursor-pointer text-2xl placeholder:text-almost-white/25 sm:text-3xl focus:outline-none"
           placeholder="P4$5W0rD!"
           type="text"
           value={value}
-          disabled
+          readOnly
         />
       </label>
       <div
